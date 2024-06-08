@@ -10,8 +10,10 @@ end
 live_loop :kick do
   kick_durations = (ring 1.25, 0.75, 0.75,0.5, 0.75)
   2.times do
-    sample :bd_haus, amp: 1.3
-    sleep kick_durations.tick
+    with_fx :eq, high: -0.5 do
+      sample :bd_haus, amp: 0.8
+      sleep kick_durations.tick
+    end
   end
 end
 
@@ -36,21 +38,6 @@ live_loop :snap do
   end
 end
 
-##| live_loop :bass do
-##|   use_synth :fm
-##|   use_synth_defaults divisor: 2, depth: 1, release: 0.3, cutoff: 60, amp: 0.76
-
-##|   bass_notes = (ring :e2, :e2, :g3, :e2, :b2, :fs2, :b3, :e3)
-##|   bass_durations = (ring 0.5, 0.25, 1, 0.5, 0.5,0.25, 0.5, 0.5)
-
-##|   8.times do
-
-##|     play bass_notes.tick, release: 0.3, cutoff: rrand(50, 70)
-
-##|     sleep bass_durations.look
-
-##|   end
-##| end
 
 live_loop :chords do
   use_synth :blade
@@ -62,7 +49,7 @@ live_loop :chords do
     chord(:a2, :madd9),
     chord(:b2, :add9, num_octaves: 2).map { |note| note +1 }
   ]
-  with_fx :eq, low: -0.52, mid: -0.1, high: 0.45 do
+  with_fx :eq, low: -0.52, high: 0.45 do
     
     play chords.tick
   end
