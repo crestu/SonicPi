@@ -44,10 +44,10 @@ live_loop :chords do
   use_synth_defaults release: 1.76, cutoff: 80, amp: 1.44, attack: 0.18, reverse: 1
   
   chords = [
-    chord(:e2, :m7),
-    chord(:g2, :major7),
     chord(:a2, :madd9),
-    chord(:b2, :add9, num_octaves: 2).map { |note| note +1 }
+    chord(:b2, :add9, num_octaves: 2).map { |note| note +1 },
+    chord(:e3, :m7),
+    chord(:g3, :major7)
   ]
   with_fx :eq, low: -0.52, high: 0.45 do
     
