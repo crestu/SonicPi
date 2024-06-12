@@ -3,12 +3,10 @@ use_sample_bpm :loop_compus, num_beats: 6
 use_osc "local host", 10000
 osc "/hello/world"
 
-
-
 live_loop :chop do
   "/interactive/box1"
   2.times do
-    sample :loop_compus, amp: 0.75, num_slices: 64, slice: (ring 0, pick, pick, 5).tick
+    sample :loop_compus, amp: 0.65, num_slices: 64, slice: (ring 0, pick, pick, 5).tick
     sleep 0.125
   end
 end
@@ -55,7 +53,6 @@ live_loop :chords do
     chord(:g4, :major7)
   ]
   with_fx :eq, low: -0.52, high: 0.45 do
-    
     play chords.tick
   end
   sleep 2
@@ -63,24 +60,33 @@ end
 
 live_loop :bass do
   use_synth :subpulse
-  use_synth_defaults cutoff: 75, amp: 1.5
-  
+  use_synth_defaults cutoff: 75, amp: 1
   
   bass_notes = (ring :b2, :b2, :e1, :b2, :b2, :e1, :g2)
   bass_durations = (ring 0.5, 0.25, 1.25, 0.5, 0.25, 0.75, 0.5)
   
   8.times do
-    
     play bass_notes.tick, release: 0.25
     sleep bass_durations.look
-    
+  end
+end
+
+live_loop :fm_bass do
+  use_synth :fm
+  use_synth_defaults cutoff: 70, amp: 0.3  # Adjust amp as needed to balance the mix
+  
+  bass_notes = (ring :b2, :b2, :e1, :b2, :b2, :e1, :g2)
+  bass_durations = (ring 0.5, 0.25, 1.25, 0.5, 0.25, 0.75, 0.5)
+  
+  8.times do
+    play bass_notes.tick, release: 0.25
+    sleep bass_durations.look
   end
 end
 
 live_loop :synth do
   use_synth :square
-  use_synth_defaults amp: 0.125
-  
+  use_synth_defaults amp: 0.08, attack: 0.1
   
   bass_notes = (ring :e3, :g3, :g3, :e3)
   bass_durations = (ring 0.25, 0.25, 0.25)
@@ -88,13 +94,13 @@ live_loop :synth do
   sleep 1.5
   
   2.times do
-    with_fx :reverb, mix: 0.75, room: 0.95 do
-      play bass_notes.tick, release: 0.25
-      
+    with_fx :reverb, mix: 0.8, room: 0.8 do
+      note = bass_notes.tick
+      pan_value = (note == :e3) ? -0.5 : 0.5
+      play note, release: 0.25, pan: pan_value
       sleep bass_durations.look
     end
   end
-  
   sleep 2
-  
 end
+
