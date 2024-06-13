@@ -22,7 +22,7 @@ live_loop :kick do
 end
 
 live_loop :hats do
-  velocities = (ring 0.1, 0.14, 0.14, 0.14, 0.14, 0.14, 0.15, 0.14)
+  velocities = (ring 0.09, 0.13, 0.13, 0.13, 0.13, 0.13, 0.14, 0.13)
   
   8.times do |i|
     with_fx :echo, phase: 0.6, decay: 0.28, mix: 0.09 do
@@ -44,7 +44,7 @@ end
 
 live_loop :chords do
   use_synth :blade
-  use_synth_defaults release: 1.76, cutoff: 80, amp: 1, attack: 0.18, reverse: 1
+  use_synth_defaults release: 1.76, cutoff: 80, amp: 1.15, attack: 0.18, reverse: 1
   
   chords = [
     chord(:a3, :madd9),
@@ -86,7 +86,7 @@ end
 
 live_loop :synth do
   use_synth :square
-  use_synth_defaults amp: 0.08, attack: 0.1
+  use_synth_defaults amp: 0.035, attack: 0.15
   
   bass_notes = (ring :e3, :g3, :g3, :e3)
   bass_durations = (ring 0.25, 0.25, 0.25)
