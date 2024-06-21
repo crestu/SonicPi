@@ -16,7 +16,7 @@ end
 live_loop :kick_pattern do
   4.times do
     kick_duration = (ring 1.25, 0.5,0.25, 0.5, 1.25, 0.25)
-    sample :bd_haus,amp: 2, rpitch: 11
+    sample :bd_haus,amp: 1, rpitch: 1
     sleep kick_duration.tick
   end
 end
@@ -38,10 +38,10 @@ live_loop :synth do
 end
 
 live_loop :ateohate do
-  kick_durations = (ring 0.75, 1.25, 1.25, 0.75)
+  kick_durations = (ring 2.75, 1.25)
   2.times do
     with_fx :distortion, distort: 0.5 do
-      sample :bd_boom, amp: 2, release: 0.5, rpitch: -3.85
+      sample :bd_boom, amp: 2, release: 0.5, rpitch: 0
       sleep kick_durations.tick
     end
   end
